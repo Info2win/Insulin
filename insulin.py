@@ -47,19 +47,19 @@ def main() -> None:
         for _ in range(patientCount):
             decreaseList,doesesList = [],[] # empty the lists for each patient
             totalInsulin = 0 # reset total Insulin taken for each patient
-            inputNames()
-            input12HourBloodGlucoseValues()
-            determineGlocuseValuesAbove120()
-            printValuesAbove120()
-            inputInsulinDosesTakenIn12Hours()
-            calculateTotalInsulin()
+            input_names()
+            input_12_hour_glocuse_values()
+            determine_glocuse_values_above_120()
+            print_values_above_120()
+            input_insulin_doses_taken_in_12_hours()
+            calculate_total_insulin()
             calculateDecrease()
             calculate(totalInsulin,decreaseList)
     print("12-hour blood glucose values of patients in service:")
     print(glucoseValuesDict)
-    printInsulinNeeded()
+    print_insulin_needed()
 
-def inputNames() -> None:
+def input_names() -> None:
     """Input name of a patient into a global variable called name."""
     global name
     name = input("Enter patient name: ")
@@ -67,10 +67,10 @@ def inputNames() -> None:
         namesList.append(name)
     else:
         print("Plase enter a valid name!")
-        inputNames()
+        input_names()
     
     
-def input12HourBloodGlucoseValues() -> None:
+def input_12_hour_glocuse_values() -> None:
     """Input a patient's 12-hour blood glucose values into a global dictonary.
     Keys of the dictionary are the names of the patients.
     """
@@ -83,15 +83,15 @@ def input12HourBloodGlucoseValues() -> None:
         glucoseValuesDict[name] = intList
     else:
         print("Please enter valid values!")
-        input12HourBloodGlucoseValues()
+        input_12_hour_glocuse_values()
 
-def determineGlocuseValuesAbove120() -> None:
+def determine_glocuse_values_above_120() -> None:
     """Filteres a patient's glocuse values list by being above of 120."""
     global over120Dict
-    filtered: List[int] = list(filter(isAbove120,glucoseValuesDict[name]))
+    filtered: List[int] = list(filter(is_above_120,glucoseValuesDict[name]))
     over120Dict[name] = filtered
 
-def inputInsulinDosesTakenIn12Hours() -> None:
+def input_insulin_doses_taken_in_12_hours() -> None:
     """Inputs Number of times insulin is taken in 12 hours and these insulin doses in to a global variable which is a list of integers called doesesList"""
     global insulinTakenCount
     tempCount = input("How many times did you take insulin in 12 hours?:")
@@ -99,11 +99,11 @@ def inputInsulinDosesTakenIn12Hours() -> None:
         insulinTakenCount = int(tempCount)
     else:
         print("Please enter a valid count!")
-        inputInsulinDosesTakenIn12Hours()
-    inputDoeses(insulinTakenCount)
+        input_insulin_doses_taken_in_12_hours()
+    input_doeses(insulinTakenCount)
 
         
-def inputDoeses(insulinTakenCount:int) -> None:
+def input_doeses(insulinTakenCount:int) -> None:
     """Inputs the doses taken in 12 hours.
     While dose values are invalid, prints an error and request input again.
     
@@ -117,9 +117,9 @@ def inputDoeses(insulinTakenCount:int) -> None:
             doesesList.append(int(i))
     else:
         print("Invalid input. Please try again!")
-        inputDoeses(insulinTakenCount)
+        input_doeses(insulinTakenCount)
 
-def calculateTotalInsulin() -> None:
+def calculate_total_insulin() -> None:
     """Calculates the total amount of insulin into a global variable called totalInsulin."""
     global totalInsulin, doesesList
     totalInsulin = int(reduce(lambda a,b: a+b ,doesesList))
@@ -140,18 +140,18 @@ def calculate(totalInsulin:int,decreaseList:List[int]) -> None:
         unitsDict[name].append(((decreaseValue / lowers),value))
 
 
-def printInsulinNeeded() -> None:
+def print_insulin_needed() -> None:
     """Prints how much unit insulin should be taken for each value that is above 120 mg/dl for the each patient."""
     for name in namesList:
         print(name + " should take")
         for i in range(len(over120Dict[name])):
             print("%.2f unit insulin for " % unitsDict[name][i][0] + str(unitsDict[name][i][1]) + " mg/dl")
 
-def printValuesAbove120() -> None:
+def print_values_above_120() -> None:
     """Prints the patient names and glucose values that are above 120 mg/dl as a dictionary."""
     print("Glucose values over 120 mg/dl : ", end = " ")
     print(over120Dict[name])
-def isAbove120(value:Annotated[int,"Patient's glucose value to be tested for being above of 120"])->bool:
+def is_above_120(value:Annotated[int,"Patient's glucose value to be tested for being above of 120"])->bool:
     """Returns True if Patient's glucose value is above 120 mg/dl.
     Else returns False.
     
