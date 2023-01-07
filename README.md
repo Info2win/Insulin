@@ -1,6 +1,6 @@
 # Insulin
 
-## This script predicts the amount of additional insulin that five Type-1 diabetics should take for the blood glucose level to be above 120 mg/dl.
+## This script predicts the amount of additional insulin that Type-1 diabetics should take for the blood glucose level to be above 120 mg/dl.
 
  While writing this script I have used the followings to write <b>clean code</b> :
 
